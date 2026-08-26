@@ -16,7 +16,7 @@ public class Booking
 
     public DateTime CreatedAt { get; set; }
 
-    public Room Room { get; set; } = null!;
+    public Hall Hall { get; set; } = null!;
 
     public Customer Customer { get; set; } = null!;
 
