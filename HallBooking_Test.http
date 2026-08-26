@@ -1,0 +1,6 @@
+@HallBooking_Test_HostAddress = http://localhost:5014
+
+GET {{HallBooking_Test_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
