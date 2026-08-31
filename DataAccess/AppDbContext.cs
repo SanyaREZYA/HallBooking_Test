@@ -5,13 +5,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 {
     public DbSet<Hall> Halls => Set<Hall>();
 
-    public DbSet<Service> Services => Set<Service>();
+    public DbSet<HallOption> HallOptions => Set<HallOption>();
 
     public DbSet<Customer> Customers => Set<Customer>();
 
     public DbSet<Booking> Bookings => Set<Booking>();
 
-    public DbSet<BookingService> BookingServices => Set<BookingService>();
+    public DbSet<BookingHallOption> BookingHallOption => Set<BookingHallOption>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,7 +26,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
                 .HasDefaultValue(true);
         });
 
-        modelBuilder.Entity<Service>(entity =>
+        modelBuilder.Entity<HallOption>(entity =>
         {
             entity.Property(s => s.Price)
                 .HasPrecision(10, 2);
@@ -53,7 +53,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
                 .HasColumnType("timestamp without time zone");
         });
 
-        modelBuilder.Entity<BookingService>()
+        modelBuilder.Entity<BookingHallOption>()
             .HasKey(bs => new { bs.BookingId, bs.ServiceId });
 
         modelBuilder.Entity<Hall>().HasData(
@@ -83,22 +83,22 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
             }
 );
 
-        modelBuilder.Entity<Service>().HasData(
-            new Service
+        modelBuilder.Entity<HallOption>().HasData(
+            new HallOption
             {
                 Id = 1,
                 Name = "Проектор",
                 Price = 500,
                 IsActive = true
             },
-            new Service
+            new HallOption
             {
                 Id = 2,
                 Name = "Wi-Fi",
                 Price = 300,
                 IsActive = true
             },
-            new Service
+            new HallOption
             {
                 Id = 3,
                 Name = "Звук",

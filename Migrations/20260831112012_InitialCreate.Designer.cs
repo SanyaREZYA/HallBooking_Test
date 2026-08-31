@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HallBooking_Test.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260826132618_InitialCreate")]
+    [Migration("20260831112012_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -70,7 +70,7 @@ namespace HallBooking_Test.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("BookingService", b =>
+            modelBuilder.Entity("BookingHallOption", b =>
                 {
                     b.Property<int>("BookingId")
                         .HasColumnType("integer");
@@ -78,11 +78,14 @@ namespace HallBooking_Test.Migrations
                     b.Property<int>("ServiceId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("HallOptionId")
+                        .HasColumnType("integer");
+
                     b.HasKey("BookingId", "ServiceId");
 
-                    b.HasIndex("ServiceId");
+                    b.HasIndex("HallOptionId");
 
-                    b.ToTable("BookingServices");
+                    b.ToTable("BookingHallOption");
                 });
 
             modelBuilder.Entity("Customer", b =>
@@ -169,7 +172,7 @@ namespace HallBooking_Test.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Service", b =>
+            modelBuilder.Entity("HallOption", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -192,7 +195,7 @@ namespace HallBooking_Test.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Services");
+                    b.ToTable("HallOptions");
 
                     b.HasData(
                         new
@@ -237,28 +240,28 @@ namespace HallBooking_Test.Migrations
                     b.Navigation("Hall");
                 });
 
-            modelBuilder.Entity("BookingService", b =>
+            modelBuilder.Entity("BookingHallOption", b =>
                 {
                     b.HasOne("Booking", "Booking")
-                        .WithMany("BookingServices")
+                        .WithMany("BookingHallOption")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Service", "Service")
-                        .WithMany("BookingServices")
-                        .HasForeignKey("ServiceId")
+                    b.HasOne("HallOption", "HallOption")
+                        .WithMany("BookingHallOption")
+                        .HasForeignKey("HallOptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Booking");
 
-                    b.Navigation("Service");
+                    b.Navigation("HallOption");
                 });
 
             modelBuilder.Entity("Booking", b =>
                 {
-                    b.Navigation("BookingServices");
+                    b.Navigation("BookingHallOption");
                 });
 
             modelBuilder.Entity("Customer", b =>
@@ -271,9 +274,9 @@ namespace HallBooking_Test.Migrations
                     b.Navigation("Bookings");
                 });
 
-            modelBuilder.Entity("Service", b =>
+            modelBuilder.Entity("HallOption", b =>
                 {
-                    b.Navigation("BookingServices");
+                    b.Navigation("BookingHallOption");
                 });
 #pragma warning restore 612, 618
         }

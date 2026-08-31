@@ -1,4 +1,4 @@
-public class BookingService
+public class BookingHallOption
 {
     public int BookingId { get; set; }
 
@@ -6,5 +6,5 @@ public class BookingService
 
     public Booking Booking { get; set; } = null!;
 
-    public Service Service { get; set; } = null!;
+    public HallOption HallOption { get; set; } = null!;
 }

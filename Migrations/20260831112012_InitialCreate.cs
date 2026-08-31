@@ -31,6 +31,21 @@ namespace HallBooking_Test.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HallOptions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HallOptions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Halls",
                 columns: table => new
                 {
@@ -44,21 +59,6 @@ namespace HallBooking_Test.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Halls", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Services",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Services", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,27 +94,38 @@ namespace HallBooking_Test.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookingServices",
+                name: "BookingHallOption",
                 columns: table => new
                 {
                     BookingId = table.Column<int>(type: "integer", nullable: false),
-                    ServiceId = table.Column<int>(type: "integer", nullable: false)
+                    ServiceId = table.Column<int>(type: "integer", nullable: false),
+                    HallOptionId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookingServices", x => new { x.BookingId, x.ServiceId });
+                    table.PrimaryKey("PK_BookingHallOption", x => new { x.BookingId, x.ServiceId });
                     table.ForeignKey(
-                        name: "FK_BookingServices_Bookings_BookingId",
+                        name: "FK_BookingHallOption_Bookings_BookingId",
                         column: x => x.BookingId,
                         principalTable: "Bookings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BookingServices_Services_ServiceId",
-                        column: x => x.ServiceId,
-                        principalTable: "Services",
+                        name: "FK_BookingHallOption_HallOptions_HallOptionId",
+                        column: x => x.HallOptionId,
+                        principalTable: "HallOptions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "HallOptions",
+                columns: new[] { "Id", "IsActive", "Name", "Price" },
+                values: new object[,]
+                {
+                    { 1, true, "Проектор", 500m },
+                    { 2, true, "Wi-Fi", 300m },
+                    { 3, true, "Звук", 700m }
                 });
 
             migrationBuilder.InsertData(
@@ -127,15 +138,10 @@ namespace HallBooking_Test.Migrations
                     { 3, 30, 1500m, true, "Зал C" }
                 });
 
-            migrationBuilder.InsertData(
-                table: "Services",
-                columns: new[] { "Id", "IsActive", "Name", "Price" },
-                values: new object[,]
-                {
-                    { 1, true, "Проектор", 500m },
-                    { 2, true, "Wi-Fi", 300m },
-                    { 3, true, "Звук", 700m }
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_BookingHallOption_HallOptionId",
+                table: "BookingHallOption",
+                column: "HallOptionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_CustomerId",
@@ -146,24 +152,19 @@ namespace HallBooking_Test.Migrations
                 name: "IX_Bookings_HallId",
                 table: "Bookings",
                 column: "HallId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BookingServices_ServiceId",
-                table: "BookingServices",
-                column: "ServiceId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BookingServices");
+                name: "BookingHallOption");
 
             migrationBuilder.DropTable(
                 name: "Bookings");
 
             migrationBuilder.DropTable(
-                name: "Services");
+                name: "HallOptions");
 
             migrationBuilder.DropTable(
                 name: "Customers");

@@ -20,6 +20,6 @@ public class Booking
 
     public Customer Customer { get; set; } = null!;
 
-    public ICollection<BookingService> BookingServices { get; set; } =
-        new List<BookingService>();
+    public ICollection<BookingHallOption> BookingHallOption { get; set; } =
+        new List<BookingHallOption>();
 }

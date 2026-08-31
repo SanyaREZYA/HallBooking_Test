@@ -1,4 +1,4 @@
-public class Service
+public class HallOption
 {
     public int Id { get; set; }
 
@@ -8,5 +8,5 @@ public class Service
 
     public bool IsActive { get; set; } = true;
 
-    public ICollection<BookingService> BookingServices { get; set; } = new List<BookingService>();
+    public ICollection<BookingHallOption> BookingHallOption { get; set; } = new List<BookingHallOption>();
 }
