@@ -4,9 +4,11 @@ public class CustomerDto
     [Required(ErrorMessage = "First name is required")]
     public string FirstName { get; set; } = null!;
 
+    [Required(ErrorMessage = "Last name is required")]
     public string LastName { get; set; } = null!;
 
     [Required(ErrorMessage = "Phone number is required")]
+    [Phone(ErrorMessage = "Invalid phone number")]
     public string PhoneNumber { get; set; } = null!;
 
     [Required(ErrorMessage = "Email is required")]
