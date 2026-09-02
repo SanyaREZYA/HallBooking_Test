@@ -19,12 +19,14 @@ builder.Services.AddScoped<IHallRepository, HallRepository>();
 builder.Services.AddScoped<IHallOptionRepository, HallOptionRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
 
 builder.Services.AddScoped<IHallService, HallService>();
 builder.Services.AddScoped<IHallOptionService, HallOptionService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IBookingPricingService, BookingPricingService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 
 var app = builder.Build();
 

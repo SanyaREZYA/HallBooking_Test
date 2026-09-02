@@ -11,7 +11,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 
     public DbSet<Booking> Bookings => Set<Booking>();
 
-    public DbSet<BookingHallOption> BookingHallOption => Set<BookingHallOption>();
+    public DbSet<BookingHallOption> BookingHallOptions => Set<BookingHallOption>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
