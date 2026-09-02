@@ -47,12 +47,15 @@ public class BookingService : IBookingService
             hallOptions.Add(option);
         }
 
+        var startTime = DateTime.SpecifyKind(dto.StartTime, DateTimeKind.Unspecified);
+        var endTime = DateTime.SpecifyKind(dto.EndTime, DateTimeKind.Unspecified);
+
         var booking = new Booking
         {
             HallId = dto.HallId,
             CustomerId = dto.CustomerId,
-            StartTime = dto.StartTime,
-            EndTime = dto.EndTime,
+            StartTime = startTime,
+            EndTime = endTime,
             TotalPrice = _pricingService.CalculateRentalPrice(hall.HourlyRate, dto.StartTime, dto.EndTime, hallOptions),
             Status = dto.Status
         };

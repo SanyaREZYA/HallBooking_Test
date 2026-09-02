@@ -54,7 +54,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
         });
 
         modelBuilder.Entity<BookingHallOption>()
-            .HasKey(bs => new { bs.BookingId, bs.ServiceId });
+            .HasKey(bs => new { bs.BookingId, bs.HallOptionId });
 
         modelBuilder.Entity<Hall>().HasData(
             new Hall
