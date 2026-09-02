@@ -8,8 +8,6 @@ public class CreateBookingDto
 
     public DateTime EndTime { get; set; }
 
-    public decimal TotalPrice { get; set; }
-
     public BookingStatus Status { get; set; } = BookingStatus.Confirmed;
 
     public List<int> HallOptionIds { get; set; } = new();
