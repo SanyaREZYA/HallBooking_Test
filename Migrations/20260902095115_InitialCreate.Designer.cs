@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HallBooking_Test.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260831112012_InitialCreate")]
+    [Migration("20260902095115_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -46,9 +46,6 @@ namespace HallBooking_Test.Migrations
                     b.Property<int>("HallId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("RoomId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp without time zone");
 
@@ -75,13 +72,10 @@ namespace HallBooking_Test.Migrations
                     b.Property<int>("BookingId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("HallOptionId")
                         .HasColumnType("integer");
 
-                    b.HasKey("BookingId", "ServiceId");
+                    b.HasKey("BookingId", "HallOptionId");
 
                     b.HasIndex("HallOptionId");
 
@@ -243,7 +237,7 @@ namespace HallBooking_Test.Migrations
             modelBuilder.Entity("BookingHallOption", b =>
                 {
                     b.HasOne("Booking", "Booking")
-                        .WithMany("BookingHallOption")
+                        .WithMany("BookingHallOptions")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -261,7 +255,7 @@ namespace HallBooking_Test.Migrations
 
             modelBuilder.Entity("Booking", b =>
                 {
-                    b.Navigation("BookingHallOption");
+                    b.Navigation("BookingHallOptions");
                 });
 
             modelBuilder.Entity("Customer", b =>

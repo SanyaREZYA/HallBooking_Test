@@ -67,14 +67,13 @@ namespace HallBooking_Test.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RoomId = table.Column<int>(type: "integer", nullable: false),
+                    HallId = table.Column<int>(type: "integer", nullable: false),
                     CustomerId = table.Column<int>(type: "integer", nullable: false),
                     StartTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     EndTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "numeric(12,2)", precision: 12, scale: 2, nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    HallId = table.Column<int>(type: "integer", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -98,12 +97,11 @@ namespace HallBooking_Test.Migrations
                 columns: table => new
                 {
                     BookingId = table.Column<int>(type: "integer", nullable: false),
-                    ServiceId = table.Column<int>(type: "integer", nullable: false),
                     HallOptionId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookingHallOption", x => new { x.BookingId, x.ServiceId });
+                    table.PrimaryKey("PK_BookingHallOption", x => new { x.BookingId, x.HallOptionId });
                     table.ForeignKey(
                         name: "FK_BookingHallOption_Bookings_BookingId",
                         column: x => x.BookingId,
