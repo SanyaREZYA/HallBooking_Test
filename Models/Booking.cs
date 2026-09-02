@@ -2,7 +2,7 @@ public class Booking
 {
     public int Id { get; set; }
 
-    public int RoomId { get; set; }
+    public int HallId { get; set; }
 
     public int CustomerId { get; set; }
 
@@ -20,6 +20,6 @@ public class Booking
 
     public Customer Customer { get; set; } = null!;
 
-    public ICollection<BookingHallOption> BookingHallOption { get; set; } =
+    public ICollection<BookingHallOption> BookingHallOptions { get; set; } =
         new List<BookingHallOption>();
 }
